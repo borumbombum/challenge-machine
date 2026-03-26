@@ -18,7 +18,7 @@
 	let { children } = $props();
 </script>
 
-<div class="min-h-screen bg-slate-900 text-white">
+<div class="min-h-screen">
 	{@render children()}
 </div>
 

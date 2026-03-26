@@ -27,8 +27,8 @@
 	<!-- Header -->
 	<div class="flex items-center justify-between mb-4">
 		<a href="/history" class="btn btn-ghost btn-xs sm:btn-sm">← Back</a>
-		<h1 class="text-lg sm:text-xl font-bold text-white">Challenge Details</h1>
-		<button class="btn btn-ghost btn-xs text-red-400" onclick={confirmDelete}>
+		<h1 class="text-lg sm:text-xl font-bold text-base-content">Challenge Details</h1>
+		<button class="btn btn-ghost btn-xs text-error" onclick={confirmDelete}>
 			🗑️
 		</button>
 	</div>
@@ -41,7 +41,7 @@
 
 	<!-- Prize -->
 	<div class="text-center mb-4 sm:mb-6">
-		<div class="mb-1 sm:mb-2 text-xs sm:text-sm uppercase tracking-widest text-slate-400">
+		<div class="mb-1 sm:mb-2 text-xs sm:text-sm uppercase tracking-widest text-base-content/70">
 			The Goal
 		</div>
 		<h1 class="text-2xl sm:text-3xl md:text-4xl font-black bg-gradient-to-r from-amber-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">
@@ -57,9 +57,9 @@
 	</div>
 
 	<!-- Participants -->
-	<div class="card bg-slate-800 border border-slate-700 mb-4 w-full max-w-md mx-auto">
+	<div class="card bg-base-200 border border-base-300 mb-4 w-full max-w-md mx-auto">
 		<div class="card-body p-4 sm:p-6">
-			<h2 class="card-title text-white mb-3 sm:mb-4">👥 Participants</h2>
+			<h2 class="card-title text-base-content mb-3 sm:mb-4">👥 Participants</h2>
 			<div class="flex flex-wrap gap-2 justify-center">
 				{#each data.challenge.participants as p}
 					<span class="badge badge-lg badge-primary">{p}</span>
@@ -70,13 +70,13 @@
 
 	<!-- Results -->
 	<div class="grid sm:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6 w-full max-w-md mx-auto">
-		<div class="card bg-slate-800 border border-slate-700">
+		<div class="card bg-base-200 border border-base-300">
 			<div class="card-body p-3 sm:p-4">
-				<h3 class="card-title text-slate-300 text-xs sm:text-sm uppercase tracking-wider">
+				<h3 class="card-title text-base-content/80 text-xs sm:text-sm uppercase tracking-wider">
 					🏃 Runs
 				</h3>
-				<div class="text-2xl sm:text-3xl font-black text-white mb-1 sm:mb-2">
-					{data.challenge.total_runs}<span class="text-slate-500 text-base sm:text-xl">/{data.challenge.runs_goal}</span>
+				<div class="text-2xl sm:text-3xl font-black text-base-content mb-1 sm:mb-2">
+					{data.challenge.total_runs}<span class="text-base-content/50 text-base sm:text-xl">/{data.challenge.runs_goal}</span>
 				</div>
 				<progress
 					class="progress {data.challenge.won ? 'progress-success' : 'progress-error'} w-full h-3 sm:h-4"
@@ -86,13 +86,13 @@
 			</div>
 		</div>
 
-		<div class="card bg-slate-800 border border-slate-700">
+		<div class="card bg-base-200 border border-base-300">
 			<div class="card-body p-3 sm:p-4">
-				<h3 class="card-title text-slate-300 text-xs sm:text-sm uppercase tracking-wider">
+				<h3 class="card-title text-base-content/80 text-xs sm:text-sm uppercase tracking-wider">
 					📏 Distance
 				</h3>
-				<div class="text-2xl sm:text-3xl font-black text-white mb-1 sm:mb-2">
-					{data.challenge.total_km.toFixed(1)}<span class="text-slate-500 text-base sm:text-xl">/{data.challenge.km_goal}km</span>
+				<div class="text-2xl sm:text-3xl font-black text-base-content mb-1 sm:mb-2">
+					{data.challenge.total_km.toFixed(1)}<span class="text-base-content/50 text-base sm:text-xl">/{data.challenge.km_goal}km</span>
 				</div>
 				<progress
 					class="progress {data.challenge.won ? 'progress-success' : 'progress-error'} w-full h-3 sm:h-4"
@@ -105,7 +105,7 @@
 
 	<!-- Actions -->
 	<div class="flex justify-center gap-4">
-		<a href="/history" class="btn btn-outline btn-md border-slate-700 gap-2">
+		<a href="/history" class="btn btn-outline btn-md border-base-300 gap-2">
 			📋 Back to History
 		</a>
 		<a href="/start" class="btn btn-primary btn-md bg-gradient-to-r from-green-500 to-emerald-600 border-0">

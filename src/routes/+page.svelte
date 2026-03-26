@@ -19,16 +19,16 @@
 	<div class="w-full max-w-md pt-4 sm:pt-8">
 		<div class="text-4xl sm:text-5xl mb-4 sm:mb-6">🏃‍♂️🏃‍♀️</div>
 		
-		<h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 sm:mb-4">
+		<h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-base-content mb-3 sm:mb-4">
 			Running Challenge
 		</h1>
 		
-		<p class="text-sm sm:text-base text-slate-400 mb-4 sm:mb-6">
+		<p class="text-sm sm:text-base text-base-content/70 mb-4 sm:mb-6">
 			Create a challenge with your friends. Set a goal for total runs and distance. 
 			Everyone logs their runs. If you hit the goal together, you win the prize!
 		</p>
 
-		<div class="text-xs sm:text-sm text-slate-500 mb-4 sm:mb-6 space-y-1 sm:space-y-2">
+		<div class="text-xs sm:text-sm text-base-content/60 mb-4 sm:mb-6 space-y-1 sm:space-y-2">
 			<p>📅 7-day challenges</p>
 			<p>👥 Any number of participants</p>
 			<p>🏆 Custom prize</p>
@@ -43,7 +43,7 @@
 		</a>
 
 		<div class="mt-6 sm:mt-8">
-			<a href="/history" class="btn btn-ghost btn-xs sm:btn-sm text-slate-500">
+			<a href="/history" class="btn btn-ghost btn-xs sm:btn-sm text-base-content/60">
 				📋 View Challenge History
 			</a>
 		</div>

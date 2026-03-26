@@ -36,7 +36,7 @@
 	<!-- Header -->
 	<div class="flex items-center justify-between mb-4">
 		<a href="/challenge/{data.challenge.uuid}" class="btn btn-ghost btn-xs sm:btn-sm">← Back</a>
-		<h1 class="text-lg sm:text-xl font-bold text-white">Settings</h1>
+		<h1 class="text-lg sm:text-xl font-bold text-base-content">Settings</h1>
 		<div class="w-12 sm:w-16"></div>
 	</div>
 
@@ -46,35 +46,35 @@
 		</div>
 	{/if}
 
-	<div class="card bg-slate-800 border border-slate-700 w-full max-w-md mx-auto">
+	<div class="card bg-base-200 border border-base-300 w-full max-w-md mx-auto">
 		<div class="card-body p-4 sm:p-6">
-			<h2 class="card-title text-white mb-3 sm:mb-4">👥 Participants</h2>
+			<h2 class="card-title text-base-content mb-3 sm:mb-4">👥 Participants</h2>
 			<div class="flex flex-wrap gap-2 mb-6">
 				{#each data.challenge.participants as p}
 					<div class="badge badge-lg badge-primary">{p}</div>
 				{/each}
 			</div>
-			<p class="text-sm text-slate-500 mb-6">Participants can only be changed when creating a new challenge.</p>
+			<p class="text-sm text-base-content/60 mb-6">Participants can only be changed when creating a new challenge.</p>
 
 			<form method="POST" use:enhance>
 				<!-- Prize -->
 				<div class="form-control mb-6">
 					<label class="label" for="prize">
-						<span class="label-text text-slate-300 font-bold">🏆 Prize</span>
+						<span class="label-text text-base-content/80 font-bold">🏆 Prize</span>
 					</label>
 					<input
 						type="text"
 						id="prize"
 						name="prize"
 						value={data.challenge.prize}
-						class="input input-bordered bg-slate-900 border-slate-700 text-white font-bold text-lg"
+						class="input input-bordered bg-base-300 border-base-300 text-base-content font-bold text-lg"
 					/>
 				</div>
 
 				<!-- Km Goal -->
 				<div class="form-control mb-6">
 					<label class="label" for="km_goal">
-						<span class="label-text text-slate-300 font-bold">📏 Weekly Km Goal</span>
+						<span class="label-text text-base-content/80 font-bold">📏 Weekly Km Goal</span>
 					</label>
 					<input
 						type="number"
@@ -83,14 +83,14 @@
 						value={data.challenge.km_goal}
 						min="1"
 						step="1"
-						class="input input-bordered bg-slate-900 border-slate-700 text-white"
+						class="input input-bordered bg-base-300 border-base-300 text-base-content"
 					/>
 				</div>
 
 				<!-- Runs Goal -->
 				<div class="form-control mb-6">
 					<label class="label" for="runs_goal">
-						<span class="label-text text-slate-300 font-bold">🏃 Weekly Runs Goal</span>
+						<span class="label-text text-base-content/80 font-bold">🏃 Weekly Runs Goal</span>
 					</label>
 					<input
 						type="number"
@@ -99,7 +99,7 @@
 						value={data.challenge.runs_goal}
 						min="1"
 						step="1"
-						class="input input-bordered bg-slate-900 border-slate-700 text-white"
+						class="input input-bordered bg-base-300 border-base-300 text-base-content"
 					/>
 				</div>
 
@@ -115,7 +115,7 @@
 	</div>
 
 	<!-- Reset Button -->
-	<div class="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-slate-700 max-w-md mx-auto">
+	<div class="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-base-300 max-w-md mx-auto">
 		<button
 			type="button"
 			class="btn btn-outline btn-error btn-sm"

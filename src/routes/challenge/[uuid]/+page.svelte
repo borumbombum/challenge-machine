@@ -119,7 +119,7 @@
 	{:else if data.challenge}
 		<!-- Prize Hero -->
 		<div class="mb-4 sm:mb-6 text-center">
-			<div class="mb-1 sm:mb-2 text-xs sm:text-sm uppercase tracking-widest text-slate-400">
+			<div class="mb-1 sm:mb-2 text-xs sm:text-sm uppercase tracking-widest text-base-content/70">
 				The Goal
 			</div>
 			<h1 class="text-3xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r from-amber-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">
@@ -128,30 +128,30 @@
 		</div>
 
 		<!-- Goals Display -->
-		<div class="flex justify-center gap-4 sm:gap-6 mb-4 sm:mb-6 text-slate-400">
+		<div class="flex justify-center gap-4 sm:gap-6 mb-4 sm:mb-6 text-base-content/70">
 			<div class="text-center">
-				<div class="text-xl sm:text-2xl font-bold text-white">{runsGoal}</div>
+				<div class="text-xl sm:text-2xl font-bold text-base-content">{runsGoal}</div>
 				<div class="text-xs">runs</div>
 			</div>
-			<div class="text-slate-600">|</div>
+			<div class="text-base-content/50">|</div>
 			<div class="text-center">
-				<div class="text-xl sm:text-2xl font-bold text-white">{kmGoal}km</div>
+				<div class="text-xl sm:text-2xl font-bold text-base-content">{kmGoal}km</div>
 				<div class="text-xs">distance</div>
 			</div>
 		</div>
 
 		<!-- Mobile Navigation -->
 		<div class="fixed bottom-0 left-0 right-0 z-40 sm:hidden">
-			<div class="flex justify-around bg-slate-800 border-t border-slate-700 py-2">
-				<a href="/" class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary">
+			<div class="flex justify-around bg-base-200 border-t border-base-300 py-2">
+				<a href="/" class="flex flex-col items-center gap-1 text-base-content/70 hover:text-primary">
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
 					<span class="text-xs">Home</span>
 				</a>
-				<a href="/history" class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary">
+				<a href="/history" class="flex flex-col items-center gap-1 text-base-content/70 hover:text-primary">
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
 					<span class="text-xs">History</span>
 				</a>
-				<a href="/challenge/{data.challenge.uuid}/settings" class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary">
+				<a href="/challenge/{data.challenge.uuid}/settings" class="flex flex-col items-center gap-1 text-base-content/70 hover:text-primary">
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
 					<span class="text-xs">Settings</span>
 				</a>
@@ -160,9 +160,9 @@
 
 		<!-- Desktop Navigation -->
 		<div class="hidden sm:flex justify-center gap-4 mt-6">
-			<a href="/" class="btn btn-outline btn-md border-slate-700">🏠 Home</a>
-			<a href="/history" class="btn btn-outline btn-md border-slate-700">📋 History</a>
-			<a href="/challenge/{data.challenge.uuid}/settings" class="btn btn-outline btn-md border-slate-700">⚙️ Settings</a>
+			<a href="/" class="btn btn-outline btn-md border-base-300">🏠 Home</a>
+			<a href="/history" class="btn btn-outline btn-md border-base-300">📋 History</a>
+			<a href="/challenge/{data.challenge.uuid}/settings" class="btn btn-outline btn-md border-base-300">⚙️ Settings</a>
 		</div>
 
 		<!-- Days Remaining -->
@@ -184,40 +184,40 @@
 		<!-- Progress Cards -->
 		<div class="grid sm:grid-cols-2 gap-3 sm:gap-4 mb-3 sm:mb-4">
 			<!-- Runs Progress -->
-			<div class="card bg-slate-800 border border-slate-700">
+			<div class="card bg-base-200 border border-base-300">
 				<div class="card-body p-3 sm:p-4">
-					<h3 class="card-title text-slate-300 text-xs sm:text-sm uppercase tracking-wider">
+					<h3 class="card-title text-base-content/80 text-xs sm:text-sm uppercase tracking-wider">
 						🏃 Runs
 					</h3>
-					<div class="text-2xl sm:text-3xl font-black text-white mb-1 sm:mb-2">
-						{data.stats?.total_runs || 0}<span class="text-slate-500 text-base sm:text-xl">/{runsGoal}</span>
+					<div class="text-2xl sm:text-3xl font-black text-base-content mb-1 sm:mb-2">
+						{data.stats?.total_runs || 0}<span class="text-base-content/50 text-base sm:text-xl">/{runsGoal}</span>
 					</div>
 					<progress
 						class="progress progress-success w-full h-4"
 						value={data.stats?.total_runs || 0}
 						max={runsGoal}
 					></progress>
-					<div class="text-xs text-slate-400 mt-1">
+					<div class="text-xs text-base-content/70 mt-1">
 						{Math.round(runsProgress)}% complete
 					</div>
 				</div>
 			</div>
 
 			<!-- Km Progress -->
-			<div class="card bg-slate-800 border border-slate-700">
+			<div class="card bg-base-200 border border-base-300">
 				<div class="card-body p-3 sm:p-4">
-					<h3 class="card-title text-slate-300 text-xs sm:text-sm uppercase tracking-wider">
+					<h3 class="card-title text-base-content/80 text-xs sm:text-sm uppercase tracking-wider">
 						📏 Distance
 					</h3>
-					<div class="text-2xl sm:text-3xl font-black text-white mb-1 sm:mb-2">
-						{data.stats?.total_km?.toFixed(1) || 0}<span class="text-slate-500 text-base sm:text-xl">/{kmGoal}km</span>
+					<div class="text-2xl sm:text-3xl font-black text-base-content mb-1 sm:mb-2">
+						{data.stats?.total_km?.toFixed(1) || 0}<span class="text-base-content/50 text-base sm:text-xl">/{kmGoal}km</span>
 					</div>
 					<progress
 						class="progress progress-primary w-full h-4"
 						value={data.stats?.total_km || 0}
 						max={kmGoal}
 					></progress>
-					<div class="text-xs text-slate-400 mt-1">
+					<div class="text-xs text-base-content/70 mt-1">
 						{Math.round(kmProgress)}% complete
 					</div>
 				</div>
@@ -227,7 +227,7 @@
 		<!-- Details Toggle -->
 		<div class="text-center mb-3 sm:mb-4">
 			<button
-				class="btn btn-ghost btn-xs sm:btn-sm text-slate-400"
+				class="btn btn-ghost btn-xs sm:btn-sm text-base-content/70"
 				onclick={() => showDetails = !showDetails}
 			>
 				{showDetails ? '👁️' : '👁️'} {showDetails ? 'Hide' : 'Show'} Details
@@ -241,13 +241,13 @@
 					{@const participantKey = participant.replace(/\s/g, '_')}
 					{@const runs = data.stats ? (data.stats as any)[`runs_${participantKey}`] || 0 : 0}
 					{@const kms = data.stats ? (data.stats as any)[`km_${participantKey}`] || 0 : 0}
-					<div class="card bg-slate-800/50 border border-slate-700">
+					<div class="card bg-base-200/50 border border-base-300">
 						<div class="card-body p-3 sm:p-4 text-center">
-							<h3 class="text-lg sm:text-2xl font-bold text-blue-400">{participant}</h3>
-							<div class="text-lg sm:text-2xl font-black text-white">
+							<h3 class="text-lg sm:text-2xl font-bold text-primary">{participant}</h3>
+							<div class="text-lg sm:text-2xl font-black text-base-content">
 								{runs} runs
 							</div>
-							<div class="text-slate-400 text-sm">
+							<div class="text-base-content/70 text-sm">
 								{kms.toFixed(1)} km
 							</div>
 						</div>
@@ -273,21 +273,21 @@
 		<!-- Recent Activities -->
 		{#if data.activities.length > 0}
 			<div class="mt-6">
-				<h3 class="text-lg font-bold text-slate-300 mb-4">Recent Activities</h3>
+				<h3 class="text-lg font-bold text-base-content/80 mb-4">Recent Activities</h3>
 				<div class="space-y-2">
 					{#each data.activities.slice(0, 5) as activity}
-						<div class="flex items-center justify-between bg-slate-800/50 rounded-lg p-3">
+						<div class="flex items-center justify-between bg-base-200/50 rounded-lg p-3">
 							<div class="flex items-center gap-3">
-								<div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg bg-blue-500/20 text-blue-400">
+								<div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg bg-primary/20 text-primary">
 									{activity.participant.charAt(0).toUpperCase()}
 								</div>
 								<div>
-									<div class="font-bold text-white">{activity.participant} ran</div>
-									<div class="text-xs text-slate-400">{activity.date}</div>
+									<div class="font-bold text-base-content">{activity.participant} ran</div>
+									<div class="text-xs text-base-content/70">{activity.date}</div>
 								</div>
 							</div>
 							<div class="flex items-center gap-2">
-								<div class="text-xl font-black text-emerald-400">
+								<div class="text-xl font-black text-success">
 									+{activity.distance_km}km
 								</div>
 								<form method="POST" action="?/deleteActivity" use:enhance={() => {
@@ -298,7 +298,7 @@
 									};
 								}}>
 									<input type="hidden" name="activityId" value={activity.id} />
-									<button type="submit" class="btn btn-ghost btn-xs text-red-400 hover:text-red-300">
+									<button type="submit" class="btn btn-ghost btn-xs text-error hover:text-error/70">
 										✕
 									</button>
 								</form>
@@ -312,9 +312,9 @@
 		<!-- Log Run Modal -->
 		{#if showLogRun}
 			<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-				<div class="card bg-slate-800 border border-slate-700 w-full max-w-md">
+				<div class="card bg-base-200 border border-base-300 w-full max-w-md">
 					<div class="card-body">
-						<h2 class="card-title text-white mb-4">🏃 Log Your Run</h2>
+						<h2 class="card-title text-base-content mb-4">🏃 Log Your Run</h2>
 						
 						<form method="POST" action="?/logActivity" use:enhance={() => {
 							appState.submitting = true;
@@ -328,13 +328,13 @@
 							<!-- Participant -->
 							<div class="form-control mb-4">
 								<label class="label" for="participant">
-									<span class="label-text text-slate-300">Who ran?</span>
+									<span class="label-text text-base-content/80">Who ran?</span>
 								</label>
 								<select
 									id="participant"
 									name="participant"
 									bind:value={logParticipant}
-									class="select select-bordered bg-slate-900 border-slate-700 text-white"
+									class="select select-bordered bg-base-300 border-base-300 text-base-content"
 								>
 									{#each data.challenge.participants as p}
 										<option value={p}>{p}</option>
@@ -345,7 +345,7 @@
 							<!-- Distance -->
 							<div class="form-control mb-4">
 								<label class="label" for="distance_km">
-									<span class="label-text text-slate-300">Distance (km)</span>
+									<span class="label-text text-base-content/80">Distance (km)</span>
 								</label>
 								<input
 									type="number"
@@ -354,21 +354,21 @@
 									bind:value={logDistance}
 									step="0.5"
 									min="0.5"
-									class="input input-bordered bg-slate-900 border-slate-700 text-white"
+									class="input input-bordered bg-base-300 border-base-300 text-base-content"
 								/>
 							</div>
 
 							<!-- Date -->
 							<div class="form-control mb-4">
 								<label class="label" for="date">
-									<span class="label-text text-slate-300">Date</span>
+									<span class="label-text text-base-content/80">Date</span>
 								</label>
 								<input
 									type="date"
 									id="date"
 									name="date"
 									bind:value={logDate}
-									class="input input-bordered bg-slate-900 border-slate-700 text-white"
+									class="input input-bordered bg-base-300 border-base-300 text-base-content"
 								/>
 							</div>
 

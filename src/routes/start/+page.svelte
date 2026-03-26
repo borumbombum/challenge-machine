@@ -28,12 +28,12 @@
 	<!-- Header -->
 	<div class="flex items-center justify-between mb-4">
 		<a href="/" class="btn btn-ghost btn-xs sm:btn-sm">← Back</a>
-		<h1 class="text-lg sm:text-xl font-bold text-white">Create Challenge</h1>
+		<h1 class="text-lg sm:text-xl font-bold text-base-content">Create Challenge</h1>
 		<div class="w-12 sm:w-16"></div>
 	</div>
 
 	{#if error}
-		<div class="alert alert-error mb-4 bg-red-900/50 border border-red-700 text-white">
+		<div class="alert alert-error mb-4">
 			<span>{error}</span>
 		</div>
 	{/if}
@@ -46,9 +46,9 @@
 		};
 	}}>
 		<!-- Participants -->
-		<div class="card bg-slate-800 border border-slate-700 mb-4">
+		<div class="card bg-base-200 border border-base-300 mb-4">
 			<div class="card-body p-4 sm:p-6">
-				<h2 class="card-title text-white mb-4">👥 Participants</h2>
+				<h2 class="card-title text-base-content mb-4">👥 Participants</h2>
 				
 				<div class="space-y-3">
 					{#each participants as _, i}
@@ -57,13 +57,13 @@
 								type="text"
 								name="participant_{i}"
 								bind:value={participants[i]}
-								class="input input-sm sm:input-md input-bordered flex-1 bg-slate-900 border-slate-700 text-white"
+								class="input input-sm sm:input-md input-bordered flex-1 bg-base-300 border-base-300 text-base-content"
 								placeholder="Name (e.g., Flash, Bolt)"
 							/>
 							{#if participants.length > 1}
 								<button
 									type="button"
-									class="btn btn-ghost text-red-400"
+									class="btn btn-ghost text-error"
 									onclick={() => removeParticipant(i)}
 								>
 									✕
@@ -75,7 +75,7 @@
 
 				<button
 					type="button"
-					class="btn btn-ghost btn-sm mt-3 text-slate-400"
+					class="btn btn-ghost btn-sm mt-3 text-base-content/70"
 					onclick={addParticipant}
 				>
 					+ Add Participant
@@ -84,13 +84,13 @@
 		</div>
 
 		<!-- Prize -->
-		<div class="card bg-slate-800 border border-slate-700 mb-4">
+		<div class="card bg-base-200 border border-base-300 mb-4">
 			<div class="card-body p-4 sm:p-6">
-				<h2 class="card-title text-white mb-3 sm:mb-4">🏆 Prize</h2>
+				<h2 class="card-title text-base-content mb-3 sm:mb-4">🏆 Prize</h2>
 				<input
 					type="text"
 					name="prize"
-					class="input input-sm sm:input-md input-bordered w-full bg-slate-900 border-slate-700 text-white font-bold"
+					class="input input-sm sm:input-md input-bordered w-full bg-base-300 border-base-300 text-base-content font-bold"
 					placeholder="What are you playing for?"
 					value="🎉 MYSTERY PRIZE 🎉"
 				/>
@@ -98,33 +98,33 @@
 		</div>
 
 		<!-- Goals -->
-		<div class="card bg-slate-800 border border-slate-700 mb-4">
+		<div class="card bg-base-200 border border-base-300 mb-4">
 			<div class="card-body p-4 sm:p-6">
-				<h2 class="card-title text-white mb-3 sm:mb-4">📊 Goals (7 days)</h2>
+				<h2 class="card-title text-base-content mb-3 sm:mb-4">📊 Goals (7 days)</h2>
 				
 				<div class="grid grid-cols-2 gap-4">
 					<div>
 						<label class="label" for="km_goal">
-							<span class="label-text text-slate-300">📏 Total Km</span>
+							<span class="label-text text-base-content/80">📏 Total Km</span>
 						</label>
 						<input
 							type="number"
 							id="km_goal"
 							name="km_goal"
-							class="input input-sm sm:input-md input-bordered w-full bg-slate-900 border-slate-700 text-white"
+							class="input input-sm sm:input-md input-bordered w-full bg-base-300 border-base-300 text-base-content"
 							value="30"
 							min="1"
 						/>
 					</div>
 					<div>
 						<label class="label" for="runs_goal">
-							<span class="label-text text-slate-300">🏃 Total Runs</span>
+							<span class="label-text text-base-content/80">🏃 Total Runs</span>
 						</label>
 						<input
 							type="number"
 							id="runs_goal"
 							name="runs_goal"
-							class="input input-sm sm:input-md input-bordered w-full bg-slate-900 border-slate-700 text-white"
+							class="input input-sm sm:input-md input-bordered w-full bg-base-300 border-base-300 text-base-content"
 							value="6"
 							min="1"
 						/>
