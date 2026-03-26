@@ -1,0 +1,150 @@
+<script lang="ts">
+	import { enhance } from '$app/forms';
+	import { appState } from '$lib/state.svelte';
+
+	const funnyNames = ['Alex', 'Sam', 'Jordan', 'Riley', 'Morgan', 'Casey', 'Taylor', 'Jamie', 'Quinn', 'Avery', 'Charlie', 'Dakota'];
+	
+	function getRandomNames() {
+		const shuffled = [...funnyNames].sort(() => Math.random() - 0.5);
+		return shuffled.slice(0, 2);
+	}
+	
+	let participants = $state(getRandomNames());
+
+	let error = $state('');
+
+	function addParticipant() {
+		participants = [...participants, ''];
+	}
+
+	function removeParticipant(index: number) {
+		if (participants.length > 1) {
+			participants = participants.filter((_, i) => i !== index);
+		}
+	}
+</script>
+
+<div class="min-h-screen p-3 sm:p-4">
+	<!-- Header -->
+	<div class="flex items-center justify-between mb-4">
+		<a href="/" class="btn btn-ghost btn-xs sm:btn-sm">← Back</a>
+		<h1 class="text-lg sm:text-xl font-bold text-white">Create Challenge</h1>
+		<div class="w-12 sm:w-16"></div>
+	</div>
+
+	{#if error}
+		<div class="alert alert-error mb-4 bg-red-900/50 border border-red-700 text-white">
+			<span>{error}</span>
+		</div>
+	{/if}
+
+	<form method="POST" use:enhance={() => {
+		appState.submitting = true;
+		return async ({ update }) => {
+			await update();
+			appState.submitting = false;
+		};
+	}}>
+		<!-- Participants -->
+		<div class="card bg-slate-800 border border-slate-700 mb-4">
+			<div class="card-body p-4 sm:p-6">
+				<h2 class="card-title text-white mb-4">👥 Participants</h2>
+				
+				<div class="space-y-3">
+					{#each participants as _, i}
+						<div class="flex gap-2">
+							<input
+								type="text"
+								name="participant_{i}"
+								bind:value={participants[i]}
+								class="input input-sm sm:input-md input-bordered flex-1 bg-slate-900 border-slate-700 text-white"
+								placeholder="Name (e.g., Flash, Bolt)"
+							/>
+							{#if participants.length > 1}
+								<button
+									type="button"
+									class="btn btn-ghost text-red-400"
+									onclick={() => removeParticipant(i)}
+								>
+									✕
+								</button>
+							{/if}
+						</div>
+					{/each}
+				</div>
+
+				<button
+					type="button"
+					class="btn btn-ghost btn-sm mt-3 text-slate-400"
+					onclick={addParticipant}
+				>
+					+ Add Participant
+				</button>
+			</div>
+		</div>
+
+		<!-- Prize -->
+		<div class="card bg-slate-800 border border-slate-700 mb-4">
+			<div class="card-body p-4 sm:p-6">
+				<h2 class="card-title text-white mb-3 sm:mb-4">🏆 Prize</h2>
+				<input
+					type="text"
+					name="prize"
+					class="input input-sm sm:input-md input-bordered w-full bg-slate-900 border-slate-700 text-white font-bold"
+					placeholder="What are you playing for?"
+					value="🎉 MYSTERY PRIZE 🎉"
+				/>
+			</div>
+		</div>
+
+		<!-- Goals -->
+		<div class="card bg-slate-800 border border-slate-700 mb-4">
+			<div class="card-body p-4 sm:p-6">
+				<h2 class="card-title text-white mb-3 sm:mb-4">📊 Goals (7 days)</h2>
+				
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label class="label" for="km_goal">
+							<span class="label-text text-slate-300">📏 Total Km</span>
+						</label>
+						<input
+							type="number"
+							id="km_goal"
+							name="km_goal"
+							class="input input-sm sm:input-md input-bordered w-full bg-slate-900 border-slate-700 text-white"
+							value="30"
+							min="1"
+						/>
+					</div>
+					<div>
+						<label class="label" for="runs_goal">
+							<span class="label-text text-slate-300">🏃 Total Runs</span>
+						</label>
+						<input
+							type="number"
+							id="runs_goal"
+							name="runs_goal"
+							class="input input-sm sm:input-md input-bordered w-full bg-slate-900 border-slate-700 text-white"
+							value="6"
+							min="1"
+						/>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Submit -->
+		<button
+			type="submit"
+			class="btn btn-md sm:btn-lg btn-primary w-full bg-gradient-to-r from-green-500 to-emerald-600 border-0 text-white font-bold gap-2"
+			disabled={appState.submitting}
+		>
+			{#if appState.submitting}
+				<span class="loading loading-spinner"></span>
+				Creating...
+			{:else}
+				<span>🚀</span> Create Challenge
+			{/if}
+		</button>
+	</form>
+</div>

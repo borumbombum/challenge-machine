@@ -1,0 +1,11 @@
+@import 'tailwindcss';
+@plugin 'daisyui';
+
+:root {
+	--prize-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+body {
+	background: #0f172a;
+	min-height: 100vh;
+}

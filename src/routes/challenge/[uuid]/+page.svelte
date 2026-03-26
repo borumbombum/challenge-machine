@@ -1,0 +1,397 @@
+<script lang="ts">
+	import { enhance } from '$app/forms';
+	import confetti from 'canvas-confetti';
+	import { appState } from '$lib/state.svelte';
+
+	let {
+		data
+	}: {
+		data: {
+			challenge: {
+				uuid: string;
+				participants: string[];
+				prize: string;
+				km_goal: number;
+				runs_goal: number;
+				start_date: string;
+				end_date: string;
+			} | null;
+			stats: {
+				total_runs: number;
+				total_km: number;
+			};
+			activities: {
+				id: number;
+				participant: string;
+				distance_km: number;
+				date: string;
+			}[];
+			daysRemaining: number;
+			isComplete: boolean;
+			challengeEnded?: boolean;
+			previousResult?: {
+				prize: string;
+				kmGoal: number;
+				runsGoal: number;
+				totalRuns: number;
+				totalKm: number;
+				won: boolean;
+			};
+		};
+	} = $props();
+
+	let showDetails = $state(false);
+	let showLogRun = $state(false);
+	let logParticipant = $state(data.challenge?.participants[0] || '');
+	let logDistance = $state(5);
+	let logDate = $state(new Date().toISOString().split('T')[0]);
+	let hasCelebratedCompletion = $state(false);
+
+	$effect(() => {
+		if (showLogRun) {
+			logDistance = 5;
+			logDate = new Date().toISOString().split('T')[0];
+			logParticipant = data.challenge?.participants[0] || '';
+		}
+	});
+
+	function triggerLogConfetti() {
+		confetti({
+			particleCount: 50,
+			spread: 70,
+			origin: { y: 0.8 },
+			colors: ['#10b981', '#3b82f6', '#f59e0b', '#ec4899']
+		});
+	}
+
+	function triggerCompletionConfetti() {
+		const duration = 2000;
+		const end = Date.now() + duration;
+
+		(function frame() {
+			confetti({
+				particleCount: 5,
+				angle: 60,
+				spread: 55,
+				origin: { x: 0 },
+				colors: ['#10b981', '#3b82f6', '#f59e0b', '#ec4899']
+			});
+			confetti({
+				particleCount: 5,
+				angle: 120,
+				spread: 55,
+				origin: { x: 1 },
+				colors: ['#10b981', '#3b82f6', '#f59e0b', '#ec4899']
+			});
+
+			if (Date.now() < end) {
+				requestAnimationFrame(frame);
+			}
+		})();
+	}
+
+	$effect(() => {
+		if ((data.isComplete || data.challengeEnded) && !hasCelebratedCompletion) {
+			hasCelebratedCompletion = true;
+			triggerCompletionConfetti();
+		}
+	});
+
+	let kmGoal = $derived(data.challenge?.km_goal || 30);
+	let runsGoal = $derived(data.challenge?.runs_goal || 6);
+	let kmProgress = $derived(data.stats ? Math.min(100, (data.stats.total_km / kmGoal) * 100) : 0);
+	let runsProgress = $derived(data.stats ? Math.min(100, (data.stats.total_runs / runsGoal) * 100) : 0);
+</script>
+
+<div class="min-h-screen p-3 sm:p-4 pb-20 sm:pb-4">
+	{#if data.challengeEnded && data.previousResult && !data.challenge}
+		<!-- Show only when challenge was fully ended and deleted -->
+		<div class="alert {data.previousResult.won ? 'alert-success' : 'alert-error'} mb-4 sm:mb-6 bg-gradient-to-r {data.previousResult.won ? 'from-green-500 to-emerald-600' : 'from-red-500 to-orange-600'} border-0 text-white justify-center">
+			<span class="text-2xl sm:text-3xl">{data.previousResult.won ? '🎉' : '😢'}</span>
+			<span class="font-bold text-base sm:text-lg">{data.previousResult.won ? 'Challenge Complete - You Won!' : 'Challenge Ended'}</span>
+		</div>
+		
+		<div class="text-center">
+			<a href="/start" class="btn btn-md sm:btn-lg btn-primary bg-gradient-to-r from-green-500 to-emerald-600 border-0 text-white font-bold gap-2">
+				<span>🚀</span> Start New Challenge
+			</a>
+		</div>
+	{:else if data.challenge}
+		<!-- Prize Hero -->
+		<div class="mb-4 sm:mb-6 text-center">
+			<div class="mb-1 sm:mb-2 text-xs sm:text-sm uppercase tracking-widest text-slate-400">
+				The Goal
+			</div>
+			<h1 class="text-3xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r from-amber-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">
+				{data.challenge.prize}
+			</h1>
+		</div>
+
+		<!-- Goals Display -->
+		<div class="flex justify-center gap-4 sm:gap-6 mb-4 sm:mb-6 text-slate-400">
+			<div class="text-center">
+				<div class="text-xl sm:text-2xl font-bold text-white">{runsGoal}</div>
+				<div class="text-xs">runs</div>
+			</div>
+			<div class="text-slate-600">|</div>
+			<div class="text-center">
+				<div class="text-xl sm:text-2xl font-bold text-white">{kmGoal}km</div>
+				<div class="text-xs">distance</div>
+			</div>
+		</div>
+
+		<!-- Mobile Navigation -->
+		<div class="fixed bottom-0 left-0 right-0 z-40 sm:hidden">
+			<div class="flex justify-around bg-slate-800 border-t border-slate-700 py-2">
+				<a href="/" class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+					<span class="text-xs">Home</span>
+				</a>
+				<a href="/history" class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
+					<span class="text-xs">History</span>
+				</a>
+				<a href="/challenge/{data.challenge.uuid}/settings" class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+					<span class="text-xs">Settings</span>
+				</a>
+			</div>
+		</div>
+
+		<!-- Desktop Navigation -->
+		<div class="hidden sm:flex justify-center gap-4 mt-6">
+			<a href="/" class="btn btn-outline btn-md border-slate-700">🏠 Home</a>
+			<a href="/history" class="btn btn-outline btn-md border-slate-700">📋 History</a>
+			<a href="/challenge/{data.challenge.uuid}/settings" class="btn btn-outline btn-md border-slate-700">⚙️ Settings</a>
+		</div>
+
+		<!-- Days Remaining -->
+		<div class="text-center mb-3 sm:mb-4">
+			<div class="badge badge-md sm:badge-lg badge-warning gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-3">
+				<span>⏰</span>
+				<span class="text-xs sm:text-sm">{data.daysRemaining} day{data.daysRemaining !== 1 ? 's' : ''} remaining</span>
+			</div>
+		</div>
+
+		{#if data.isComplete}
+			<!-- Celebration -->
+			<div class="alert alert-success mb-3 sm:mb-4 bg-gradient-to-r from-green-500 to-emerald-600 border-0 text-white justify-center">
+				<span class="text-xl sm:text-2xl">🎉</span>
+				<span class="font-bold text-sm sm:text-base">CHALLENGE COMPLETE!</span>
+			</div>
+		{/if}
+
+		<!-- Progress Cards -->
+		<div class="grid sm:grid-cols-2 gap-3 sm:gap-4 mb-3 sm:mb-4">
+			<!-- Runs Progress -->
+			<div class="card bg-slate-800 border border-slate-700">
+				<div class="card-body p-3 sm:p-4">
+					<h3 class="card-title text-slate-300 text-xs sm:text-sm uppercase tracking-wider">
+						🏃 Runs
+					</h3>
+					<div class="text-2xl sm:text-3xl font-black text-white mb-1 sm:mb-2">
+						{data.stats?.total_runs || 0}<span class="text-slate-500 text-base sm:text-xl">/{runsGoal}</span>
+					</div>
+					<progress
+						class="progress progress-success w-full h-4"
+						value={data.stats?.total_runs || 0}
+						max={runsGoal}
+					></progress>
+					<div class="text-xs text-slate-400 mt-1">
+						{Math.round(runsProgress)}% complete
+					</div>
+				</div>
+			</div>
+
+			<!-- Km Progress -->
+			<div class="card bg-slate-800 border border-slate-700">
+				<div class="card-body p-3 sm:p-4">
+					<h3 class="card-title text-slate-300 text-xs sm:text-sm uppercase tracking-wider">
+						📏 Distance
+					</h3>
+					<div class="text-2xl sm:text-3xl font-black text-white mb-1 sm:mb-2">
+						{data.stats?.total_km?.toFixed(1) || 0}<span class="text-slate-500 text-base sm:text-xl">/{kmGoal}km</span>
+					</div>
+					<progress
+						class="progress progress-primary w-full h-4"
+						value={data.stats?.total_km || 0}
+						max={kmGoal}
+					></progress>
+					<div class="text-xs text-slate-400 mt-1">
+						{Math.round(kmProgress)}% complete
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Details Toggle -->
+		<div class="text-center mb-3 sm:mb-4">
+			<button
+				class="btn btn-ghost btn-xs sm:btn-sm text-slate-400"
+				onclick={() => showDetails = !showDetails}
+			>
+				{showDetails ? '👁️' : '👁️'} {showDetails ? 'Hide' : 'Show'} Details
+			</button>
+		</div>
+
+		{#if showDetails}
+			<!-- Individual Stats -->
+			<div class="grid grid-cols-2 sm:grid-cols-{Math.min(data.challenge.participants.length, 3)} gap-3 sm:gap-4 mb-3 sm:mb-4">
+				{#each data.challenge.participants as participant}
+					{@const participantKey = participant.replace(/\s/g, '_')}
+					{@const runs = data.stats ? (data.stats as any)[`runs_${participantKey}`] || 0 : 0}
+					{@const kms = data.stats ? (data.stats as any)[`km_${participantKey}`] || 0 : 0}
+					<div class="card bg-slate-800/50 border border-slate-700">
+						<div class="card-body p-3 sm:p-4 text-center">
+							<h3 class="text-lg sm:text-2xl font-bold text-blue-400">{participant}</h3>
+							<div class="text-lg sm:text-2xl font-black text-white">
+								{runs} runs
+							</div>
+							<div class="text-slate-400 text-sm">
+								{kms.toFixed(1)} km
+							</div>
+						</div>
+					</div>
+				{/each}
+			</div>
+		{/if}
+
+		{#if !data.isComplete}
+			<!-- Log Run Button -->
+			<div class="fixed bottom-20 sm:bottom-6 right-4 z-40">
+				<button
+					class="btn btn-primary btn-lg rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-orange-500 border-0 shadow-lg shadow-pink-500/30 hover:shadow-pink-500/50"
+					onclick={() => showLogRun = true}
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+					</svg>
+				</button>
+			</div>
+		{/if}
+
+		<!-- Recent Activities -->
+		{#if data.activities.length > 0}
+			<div class="mt-6">
+				<h3 class="text-lg font-bold text-slate-300 mb-4">Recent Activities</h3>
+				<div class="space-y-2">
+					{#each data.activities.slice(0, 5) as activity}
+						<div class="flex items-center justify-between bg-slate-800/50 rounded-lg p-3">
+							<div class="flex items-center gap-3">
+								<div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg bg-blue-500/20 text-blue-400">
+									{activity.participant.charAt(0).toUpperCase()}
+								</div>
+								<div>
+									<div class="font-bold text-white">{activity.participant} ran</div>
+									<div class="text-xs text-slate-400">{activity.date}</div>
+								</div>
+							</div>
+							<div class="flex items-center gap-2">
+								<div class="text-xl font-black text-emerald-400">
+									+{activity.distance_km}km
+								</div>
+								<form method="POST" action="?/deleteActivity" use:enhance={() => {
+									appState.submitting = true;
+									return async ({ update }) => {
+										await update();
+										appState.submitting = false;
+									};
+								}}>
+									<input type="hidden" name="activityId" value={activity.id} />
+									<button type="submit" class="btn btn-ghost btn-xs text-red-400 hover:text-red-300">
+										✕
+									</button>
+								</form>
+							</div>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
+		<!-- Log Run Modal -->
+		{#if showLogRun}
+			<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+				<div class="card bg-slate-800 border border-slate-700 w-full max-w-md">
+					<div class="card-body">
+						<h2 class="card-title text-white mb-4">🏃 Log Your Run</h2>
+						
+						<form method="POST" action="?/logActivity" use:enhance={() => {
+							appState.submitting = true;
+							return async ({ update }) => {
+								await update();
+								appState.submitting = false;
+								triggerLogConfetti();
+								showLogRun = false;
+							};
+						}}>
+							<!-- Participant -->
+							<div class="form-control mb-4">
+								<label class="label" for="participant">
+									<span class="label-text text-slate-300">Who ran?</span>
+								</label>
+								<select
+									id="participant"
+									name="participant"
+									bind:value={logParticipant}
+									class="select select-bordered bg-slate-900 border-slate-700 text-white"
+								>
+									{#each data.challenge.participants as p}
+										<option value={p}>{p}</option>
+									{/each}
+								</select>
+							</div>
+
+							<!-- Distance -->
+							<div class="form-control mb-4">
+								<label class="label" for="distance_km">
+									<span class="label-text text-slate-300">Distance (km)</span>
+								</label>
+								<input
+									type="number"
+									id="distance_km"
+									name="distance_km"
+									bind:value={logDistance}
+									step="0.5"
+									min="0.5"
+									class="input input-bordered bg-slate-900 border-slate-700 text-white"
+								/>
+							</div>
+
+							<!-- Date -->
+							<div class="form-control mb-4">
+								<label class="label" for="date">
+									<span class="label-text text-slate-300">Date</span>
+								</label>
+								<input
+									type="date"
+									id="date"
+									name="date"
+									bind:value={logDate}
+									class="input input-bordered bg-slate-900 border-slate-700 text-white"
+								/>
+							</div>
+
+							<!-- Buttons -->
+							<div class="flex gap-2">
+								<button
+									type="button"
+									class="btn btn-ghost flex-1"
+									onclick={() => showLogRun = false}
+								>
+									Cancel
+								</button>
+								<button
+									type="submit"
+									class="btn btn-primary flex-1 bg-gradient-to-r from-emerald-500 to-teal-600 border-0 text-white font-bold"
+								>
+									🎉 Log Run
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		{/if}
+	{/if}
+</div>
