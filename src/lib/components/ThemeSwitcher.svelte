@@ -44,9 +44,14 @@
 	});
 
 	function changeTheme(theme: string) {
+		console.log('Changing theme to:', theme);
 		selectedTheme = theme;
 		document.documentElement.setAttribute('data-theme', theme);
 		localStorage.setItem('theme', theme);
+		
+		// Force close dropdown by removing focus
+		const btn = document.activeElement as HTMLElement;
+		btn?.blur();
 	}
 </script>
 
