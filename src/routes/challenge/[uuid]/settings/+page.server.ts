@@ -34,9 +34,10 @@ export const actions: Actions = {
 		const prize = formData.get('prize') as string;
 		const kmGoal = parseFloat(formData.get('km_goal') as string);
 		const runsGoal = parseInt(formData.get('runs_goal') as string);
+		const description = formData.get('description') as string;
 
 		if (prize && !isNaN(kmGoal) && !isNaN(runsGoal)) {
-			await updateChallenge(params.uuid, prize, kmGoal, runsGoal);
+			await updateChallenge(params.uuid, prize, kmGoal, runsGoal, description || undefined);
 		}
 
 		throw redirect(303, `/challenge/${params.uuid}?saved=true`);

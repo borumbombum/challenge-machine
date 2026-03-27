@@ -16,6 +16,7 @@
 				runs_goal: number;
 				start_date: string;
 				end_date: string;
+				description: string;
 			} | null;
 			stats: {
 				total_runs: number;
@@ -154,6 +155,11 @@
 			<h1 class="text-3xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r from-amber-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">
 				{data.challenge.prize}
 			</h1>
+			{#if data.challenge.description}
+				<p class="mt-2 text-sm sm:text-base text-base-content/60 italic max-w-md mx-auto px-4">
+					{data.challenge.description}
+				</p>
+			{/if}
 		</div>
 
 		<!-- Goals Display -->

@@ -79,6 +79,19 @@
 					/>
 				</div>
 
+				<!-- Description -->
+				<div class="form-control mb-6">
+					<label class="label" for="description">
+						<span class="label-text text-base-content/80 font-bold">📝 Description (optional)</span>
+					</label>
+					<textarea
+						id="description"
+						name="description"
+						placeholder="What's this challenge about?"
+						class="textarea textarea-bordered bg-base-300 border-base-300 text-base-content h-24"
+					>{data.challenge.description || ''}</textarea>
+				</div>
+
 				<!-- Km Goal -->
 				<div class="form-control mb-6">
 					<label class="label" for="km_goal">

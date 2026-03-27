@@ -22,6 +22,13 @@ export async function initDb() {
 		)
 	`);
 
+	// Migration: Add description column if it doesn't exist
+	try {
+		await client.execute(`ALTER TABLE challenges ADD COLUMN description TEXT`);
+	} catch (e) {
+		// Column already exists - ignore
+	}
+
 	await client.execute(`
 		CREATE TABLE IF NOT EXISTS activities (
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -56,7 +63,8 @@ export async function createChallenge(
 	participants: string[],
 	prize: string,
 	kmGoal: number,
-	runsGoal: number
+	runsGoal: number,
+	description?: string
 ): Promise<string> {
 	const uuid = randomUUID();
 	const now = new Date();
@@ -66,9 +74,9 @@ export async function createChallenge(
 		.split('T')[0];
 
 	await client.execute(
-		`INSERT INTO challenges (uuid, participants, prize, km_goal, runs_goal, start_date, end_date)
-		 VALUES (?, ?, ?, ?, ?, ?, ?)`,
-		[uuid, JSON.stringify(participants), prize, kmGoal, runsGoal, startDate, endDate]
+		`INSERT INTO challenges (uuid, participants, prize, km_goal, runs_goal, start_date, end_date, description)
+		 VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+		[uuid, JSON.stringify(participants), prize, kmGoal, runsGoal, startDate, endDate, description || null]
 	);
 
 	return uuid;
@@ -90,7 +98,8 @@ export async function getChallengeByUuid(uuid: string) {
 		runs_goal: row.runs_goal,
 		start_date: row.start_date,
 		end_date: row.end_date,
-		created_at: row.created_at
+		created_at: row.created_at,
+		description: row.description || ''
 	};
 }
 
@@ -98,11 +107,12 @@ export async function updateChallenge(
 	uuid: string,
 	prize: string,
 	kmGoal: number,
-	runsGoal: number
+	runsGoal: number,
+	description?: string
 ) {
 	await client.execute(
-		'UPDATE challenges SET prize = ?, km_goal = ?, runs_goal = ? WHERE uuid = ?',
-		[prize, kmGoal, runsGoal, uuid]
+		'UPDATE challenges SET prize = ?, km_goal = ?, runs_goal = ?, description = ? WHERE uuid = ?',
+		[prize, kmGoal, runsGoal, description || null, uuid]
 	);
 }
 
