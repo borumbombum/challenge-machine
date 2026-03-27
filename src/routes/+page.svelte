@@ -2,6 +2,10 @@
 	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 </script>
 
+<svelte:head>
+	<title>Homepage - Challenge Machine</title>
+</svelte:head>
+
 <div class="min-h-screen flex flex-col">
 	<!-- Navbar -->
 	<nav class="navbar bg-base-200/80 backdrop-blur sticky top-0 z-50 border-b border-base-300">

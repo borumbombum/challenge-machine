@@ -45,6 +45,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>App Settings - Challenge Machine</title>
+</svelte:head>
+
 <div class="min-h-screen flex flex-col">
 	<Header title="App Settings" backLink="/" />
 

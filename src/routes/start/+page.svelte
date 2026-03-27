@@ -4,14 +4,13 @@
 	import Header from '$lib/components/Header.svelte';
 
 	const funnyNames = ['Alex', 'Sam', 'Jordan', 'Riley', 'Morgan', 'Casey', 'Taylor', 'Jamie', 'Quinn', 'Avery', 'Charlie', 'Dakota'];
-	
+
 	function getRandomNames() {
 		const shuffled = [...funnyNames].sort(() => Math.random() - 0.5);
 		return shuffled.slice(0, 2);
 	}
-	
-	let participants = $state(getRandomNames());
 
+	let participants = $state(getRandomNames());
 	let error = $state('');
 
 	function addParticipant() {
@@ -24,6 +23,10 @@
 		}
 	}
 </script>
+
+<svelte:head>
+	<title>Create Challenge - Challenge Machine</title>
+</svelte:head>
 
 <Header title="Create Challenge" backLink="/" />
 

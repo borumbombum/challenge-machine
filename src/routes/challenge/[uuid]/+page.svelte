@@ -116,6 +116,10 @@
 	let runsProgress = $derived(data.stats ? Math.min(100, (data.stats.total_runs / runsGoal) * 100) : 0);
 </script>
 
+<svelte:head>
+	<title>{data.challenge?.prize || 'Challenge'} - Challenge Machine</title>
+</svelte:head>
+
 <div class="min-h-screen flex flex-col">
 	<Header title="Challenge" backLink="/">
 		{#snippet rightSlot()}

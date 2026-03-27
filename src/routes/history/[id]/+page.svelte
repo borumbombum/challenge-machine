@@ -24,6 +24,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Challenge Details - Challenge Machine</title>
+</svelte:head>
+
 <div class="min-h-screen flex flex-col">
 	<Header title="Challenge Details" backLink="/history">
 		{#snippet rightSlot()}

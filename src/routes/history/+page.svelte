@@ -52,6 +52,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>History - Challenge Machine</title>
+</svelte:head>
+
 <!-- Hidden forms for deletion -->
 <form id="delete-active-form" method="POST" action="/history?/deleteActive" use:enhance={() => {
 	return async ({ result }) => {

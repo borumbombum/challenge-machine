@@ -33,6 +33,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Challenge Settings - Challenge Machine</title>
+</svelte:head>
+
 <div class="min-h-screen flex flex-col">
 	<Header title="Settings" backLink="/challenge/{data.challenge.uuid}">
 		{#snippet rightSlot()}
