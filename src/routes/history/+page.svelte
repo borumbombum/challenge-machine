@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { appState } from '$lib/state.svelte';
 	import { fade, slide } from 'svelte/transition';
+	import Header from '$lib/components/Header.svelte';
 
 	let { data } = $props();
 
@@ -71,13 +72,10 @@
 }}>
 </form>
 
-<div class="min-h-screen p-3 sm:p-4">
-	<!-- Header -->
-	<div class="flex items-center justify-between mb-4">
-		<a href="/" class="btn btn-ghost btn-xs sm:btn-sm">← Back</a>
-		<h1 class="text-lg sm:text-xl font-bold text-base-content">Challenge History</h1>
-		<div class="w-12 sm:w-16"></div>
-	</div>
+<div class="min-h-screen flex flex-col">
+	<Header title="Challenge History" backLink="/" />
+
+	<div class="flex-1 p-3 sm:p-4">
 
 	{#if data.history.length === 0 && data.active.length === 0}
 		<div class="text-center py-12 sm:py-16">
@@ -268,4 +266,5 @@
 			</div>
 		{/if}
 	{/if}
+	</div>
 </div>

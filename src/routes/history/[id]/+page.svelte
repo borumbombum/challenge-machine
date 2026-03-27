@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { appState } from '$lib/state.svelte';
+	import Header from '$lib/components/Header.svelte';
 
 	let { data } = $props();
 
@@ -23,15 +24,16 @@
 	}
 </script>
 
-<div class="min-h-screen p-3 sm:p-4">
-	<!-- Header -->
-	<div class="flex items-center justify-between mb-4">
-		<a href="/history" class="btn btn-ghost btn-xs sm:btn-sm">← Back</a>
-		<h1 class="text-lg sm:text-xl font-bold text-base-content">Challenge Details</h1>
-		<button class="btn btn-ghost btn-xs text-error" onclick={confirmDelete}>
-			🗑️
-		</button>
-	</div>
+<div class="min-h-screen flex flex-col">
+	<Header title="Challenge Details" backLink="/history">
+		{#snippet rightSlot()}
+			<button class="btn btn-ghost btn-sm text-error" onclick={confirmDelete}>
+				🗑️
+			</button>
+		{/snippet}
+	</Header>
+
+	<div class="flex-1 p-3 sm:p-4">
 
 	<!-- Result Banner -->
 	<div class="alert {data.challenge.won ? 'alert-success' : 'alert-error'} mb-4 bg-gradient-to-r {data.challenge.won ? 'from-green-500 to-emerald-600' : 'from-red-500 to-orange-600'} border-0 text-white justify-center">
@@ -103,7 +105,6 @@
 		</div>
 	</div>
 
-	<!-- Actions -->
 	<div class="flex justify-center gap-4">
 		<a href="/history" class="btn btn-outline btn-md border-base-300 gap-2">
 			📋 Back to History
@@ -111,5 +112,6 @@
 		<a href="/start" class="btn btn-primary btn-md bg-gradient-to-r from-green-500 to-emerald-600 border-0">
 			🚀 New Challenge
 		</a>
+	</div>
 	</div>
 </div>

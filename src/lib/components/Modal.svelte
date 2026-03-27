@@ -6,9 +6,9 @@
 
 {#if modal && modal.open}
 	<dialog class="modal modal-open">
-		<div class="modal-box bg-slate-800 border border-slate-700">
-			<h3 class="font-bold text-lg text-white">{modal.title}</h3>
-			<p class="py-4 text-slate-300">{modal.message}</p>
+		<div class="modal-box bg-base-200 border border-base-300">
+			<h3 class="font-bold text-lg text-base-content">{modal.title}</h3>
+			<p class="py-4 text-base-content/70">{modal.message}</p>
 			<div class="modal-action">
 				<button
 					class="btn btn-ghost"

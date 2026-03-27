@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { appState } from '$lib/state.svelte';
+	import Header from '$lib/components/Header.svelte';
 
 	const funnyNames = ['Alex', 'Sam', 'Jordan', 'Riley', 'Morgan', 'Casey', 'Taylor', 'Jamie', 'Quinn', 'Avery', 'Charlie', 'Dakota'];
 	
@@ -24,14 +25,9 @@
 	}
 </script>
 
-<div class="min-h-screen p-3 sm:p-4">
-	<!-- Header -->
-	<div class="flex items-center justify-between mb-4">
-		<a href="/" class="btn btn-ghost btn-xs sm:btn-sm">← Back</a>
-		<h1 class="text-lg sm:text-xl font-bold text-base-content">Create Challenge</h1>
-		<div class="w-12 sm:w-16"></div>
-	</div>
+<Header title="Create Challenge" backLink="/" />
 
+<div class="p-3 sm:p-4 max-w-2xl mx-auto">
 	{#if error}
 		<div class="alert alert-error mb-4">
 			<span>{error}</span>
@@ -136,7 +132,7 @@
 		<!-- Submit -->
 		<button
 			type="submit"
-			class="btn btn-md sm:btn-lg btn-primary w-full bg-gradient-to-r from-green-500 to-emerald-600 border-0 text-white font-bold gap-2"
+			class="btn btn-primary btn-lg w-full font-bold gap-2"
 			disabled={appState.submitting}
 		>
 			{#if appState.submitting}

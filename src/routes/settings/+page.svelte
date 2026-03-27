@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import Header from '$lib/components/Header.svelte';
 
 	const themeCategories = [
 		{
@@ -45,15 +46,7 @@
 </script>
 
 <div class="min-h-screen flex flex-col">
-	<!-- Navbar -->
-	<nav class="navbar bg-base-200/80 backdrop-blur sticky top-0 z-50 border-b border-base-300">
-		<div class="flex-1">
-			<a href="/" class="btn btn-ghost text-xl gap-2">
-				<span>←</span>
-				<span class="font-bold">App Settings</span>
-			</a>
-		</div>
-	</nav>
+	<Header title="App Settings" backLink="/" />
 
 	<!-- Settings Content -->
 	<div class="flex-1 p-4 max-w-2xl mx-auto w-full">

@@ -4,7 +4,7 @@
 
 {#if appState.toast}
 	<div class="fixed top-4 left-1/2 -translate-x-1/2 z-50">
-		<div class="alert {appState.toast.type === 'success' ? 'bg-emerald-600' : 'bg-red-600'} text-white shadow-lg animate-fade-in">
+		<div class="alert {appState.toast.type === 'success' ? 'alert-success' : 'alert-error'} shadow-lg animate-fade-in">
 			<span>{appState.toast.type === 'success' ? '✓' : '✕'}</span>
 			<span>{appState.toast.message}</span>
 		</div>

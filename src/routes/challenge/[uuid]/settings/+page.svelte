@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { appState } from '$lib/state.svelte';
+	import Header from '$lib/components/Header.svelte';
 
 	let { data } = $props();
 
@@ -32,13 +33,16 @@
 	}
 </script>
 
-<div class="min-h-screen p-3 sm:p-4">
-	<!-- Header -->
-	<div class="flex items-center justify-between mb-4">
-		<a href="/challenge/{data.challenge.uuid}" class="btn btn-ghost btn-xs sm:btn-sm">← Back</a>
-		<h1 class="text-lg sm:text-xl font-bold text-base-content">Settings</h1>
-		<div class="w-12 sm:w-16"></div>
-	</div>
+<div class="min-h-screen flex flex-col">
+	<Header title="Settings" backLink="/challenge/{data.challenge.uuid}">
+		{#snippet rightSlot()}
+			<button class="btn btn-outline btn-error btn-sm" onclick={confirmDelete}>
+				✕
+			</button>
+		{/snippet}
+	</Header>
+
+	<div class="flex-1 p-3 sm:p-4">
 
 	{#if saved}
 		<div class="alert alert-success mb-4 bg-gradient-to-r from-green-500 to-emerald-600 border-0 text-white">
@@ -113,15 +117,5 @@
 			</form>
 		</div>
 	</div>
-
-	<!-- Reset Button -->
-	<div class="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-base-300 max-w-md mx-auto">
-		<button
-			type="button"
-			class="btn btn-outline btn-error btn-sm"
-			onclick={confirmDelete}
-		>
-			🗑️ Delete This Challenge
-		</button>
 	</div>
 </div>
