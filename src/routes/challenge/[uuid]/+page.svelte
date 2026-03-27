@@ -43,6 +43,7 @@
 
 	let showDetails = $state(false);
 	let showLogRun = $state(false);
+	let showShareModal = $state(false);
 	let logParticipant = $state(data.challenge?.participants[0] || '');
 	let logDistance = $state(5);
 	let logDate = $state(new Date().toISOString().split('T')[0]);
@@ -91,6 +92,17 @@
 		})();
 	}
 
+	async function copyToClipboard() {
+		try {
+			await navigator.clipboard.writeText(window.location.href);
+			appState.toast = { message: 'Link copied!', type: 'success' };
+			setTimeout(() => appState.toast = null, 2000);
+		} catch (err) {
+			appState.toast = { message: 'Failed to copy', type: 'error' };
+			setTimeout(() => appState.toast = null, 2000);
+		}
+	}
+
 	$effect(() => {
 		if ((data.isComplete || data.challengeEnded) && !hasCelebratedCompletion) {
 			hasCelebratedCompletion = true;
@@ -107,6 +119,9 @@
 <div class="min-h-screen flex flex-col">
 	<Header title="Challenge" backLink="/">
 		{#snippet rightSlot()}
+			<button onclick={() => showShareModal = true} class="btn btn-ghost btn-sm">
+				📤
+			</button>
 			<a href="/challenge/{data.challenge?.uuid}/settings" class="btn btn-ghost btn-sm">
 				⚙️
 			</a>
@@ -380,4 +395,34 @@
 		{/if}
 	{/if}
 	</div>
+
+	<!-- Share Modal -->
+	{#if showShareModal}
+		<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onclick={() => showShareModal = false}>
+			<div class="bg-base-200 border border-base-300 rounded-lg p-6 w-full max-w-md" onclick={(e) => e.stopPropagation()}>
+				<h3 class="text-lg font-bold mb-4 text-base-content">Share Challenge</h3>
+				<p class="text-base-content/70 mb-4 text-sm">Copy this link and share it with your challenge participants!</p>
+				<div class="flex gap-2">
+					<input
+						type="text"
+						value={window.location.href}
+						disabled
+						class="input input-bordered flex-1 bg-base-300 border-base-300 text-base-content text-sm"
+					/>
+					<button
+						onclick={copyToClipboard}
+						class="btn btn-primary"
+					>
+						📋
+					</button>
+				</div>
+				<button
+					onclick={() => showShareModal = false}
+					class="btn btn-ghost w-full mt-4"
+				>
+					Close
+				</button>
+			</div>
+		</div>
+	{/if}
 </div>
