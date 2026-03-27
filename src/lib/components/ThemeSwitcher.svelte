@@ -96,7 +96,7 @@
 		<div class="relative bg-base-100 rounded-xl shadow-xl w-full max-w-lg max-h-[80vh] flex flex-col self-center">
 			<div class="p-4 border-b border-base-300 flex items-center justify-between shrink-0">
 				<h3 class="font-bold text-lg">Choose Theme</h3>
-				<button class="btn btn-sm btn-ghost" onclick={() => showModal = false}>
+				<button class="btn btn-sm btn-ghost" onclick={() => showModal = false} aria-label="Close theme picker">
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
 				</button>
 			</div>

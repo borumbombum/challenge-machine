@@ -262,6 +262,7 @@
 				<button
 					class="btn btn-primary btn-lg rounded-full w-14 h-14 p-0 shadow-lg shadow-primary/30 hover:shadow-primary/50"
 					onclick={() => showLogRun = true}
+					aria-label="Log a run"
 				>
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -398,8 +399,21 @@
 
 	<!-- Share Modal -->
 	{#if showShareModal}
-		<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onclick={() => showShareModal = false}>
-			<div class="bg-base-200 border border-base-300 rounded-lg p-6 w-full max-w-md" onclick={(e) => e.stopPropagation()}>
+		<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
+		<div 
+			class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" 
+			onclick={() => showShareModal = false}
+			role="dialog"
+			aria-modal="true"
+			tabindex="-1"
+			onkeydown={(e) => e.key === 'Escape' && (showShareModal = false)}
+		>
+		<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
+			<div 
+				class="bg-base-200 border border-base-300 rounded-lg p-6 w-full max-w-md" 
+				onclick={(e) => e.stopPropagation()}
+				role="document"
+			>
 				<h3 class="text-lg font-bold mb-4 text-base-content">Share Challenge</h3>
 				<p class="text-base-content/70 mb-4 text-sm">Copy this link and share it with your challenge participants!</p>
 				<div class="flex gap-2">
@@ -412,6 +426,7 @@
 					<button
 						onclick={copyToClipboard}
 						class="btn btn-primary"
+						aria-label="Copy link"
 					>
 						📋
 					</button>

@@ -27,7 +27,7 @@
 	let redirected = $state(false);
 
 	$effect(() => {
-		if (browser && !redirected && window.innerWidth > 768) {
+		if (browser && !redirected && window.innerWidth > 768 && window.location.pathname !== '/desktop') {
 			redirected = true;
 			window.location.href = '/desktop';
 		}
