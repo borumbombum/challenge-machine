@@ -7,7 +7,6 @@
 	import { appState } from '$lib/state.svelte';
 	import { navigating } from '$app/stores';
 	import { onMount } from 'svelte';
-	import { browser } from '$app/environment';
 
 	const themes = [
 		'light', 'dark', 'cupcake', 'bumblebee', 'emerald', 'corporate', 'synthwave', 'retro', 'cyberpunk',
@@ -21,15 +20,6 @@
 			document.documentElement.setAttribute('data-theme', saved);
 		} else {
 			document.documentElement.setAttribute('data-theme', 'forest');
-		}
-	});
-
-	let redirected = $state(false);
-
-	$effect(() => {
-		if (browser && !redirected && window.innerWidth > 768 && window.location.pathname !== '/desktop') {
-			redirected = true;
-			window.location.href = '/desktop';
 		}
 	});
 
