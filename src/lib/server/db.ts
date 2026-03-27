@@ -8,12 +8,8 @@ const client = createClient({
 });
 
 export async function initDb() {
-	await client.execute(`DROP TABLE IF EXISTS activities`);
-	await client.execute(`DROP TABLE IF EXISTS challenges`);
-	await client.execute(`DROP TABLE IF EXISTS challenge_history`);
-
 	await client.execute(`
-		CREATE TABLE challenges (
+		CREATE TABLE IF NOT EXISTS challenges (
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
 			uuid TEXT UNIQUE NOT NULL,
 			participants TEXT NOT NULL,
@@ -27,7 +23,7 @@ export async function initDb() {
 	`);
 
 	await client.execute(`
-		CREATE TABLE activities (
+		CREATE TABLE IF NOT EXISTS activities (
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
 			challenge_id INTEGER NOT NULL,
 			participant TEXT NOT NULL,
@@ -39,7 +35,7 @@ export async function initDb() {
 	`);
 
 	await client.execute(`
-		CREATE TABLE challenge_history (
+		CREATE TABLE IF NOT EXISTS challenge_history (
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
 			challenge_uuid TEXT NOT NULL,
 			participants TEXT NOT NULL,
