@@ -162,8 +162,11 @@
 	<!-- Footer -->
 	<footer class="footer footer-center p-6 bg-base-300 text-base-content">
 		<div>
+			<p class="text-sm -mb-1">
+				Powered by <a href="https://www.cubiq.lat" class="link" target="_blank" rel="noopener noreferrer">Cubiq</a>
+			</p>
 			<p class="text-sm">
-				Made for friends who run together 💚
+				Built with Opencode
 			</p>
 		</div>
 	</footer>
