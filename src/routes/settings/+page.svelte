@@ -22,8 +22,8 @@
 		'dracula', 'cmyk', 'autumn', 'business', 'acid', 'lemonade', 'night', 'coffee', 'winter', 'catppuccin', 'lichess'
 	];
 
-	let selectedTheme = $state('night');
-	let expandedCategory = $state<string | null>('Dark');
+	let selectedTheme = $state('forest');
+	let expandedCategory = $state<string | null>('Creative');
 
 	onMount(() => {
 		const saved = localStorage.getItem('theme');

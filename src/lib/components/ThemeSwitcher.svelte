@@ -33,7 +33,7 @@
 		'lichess'
 	];
 
-	let selectedTheme = $state('night');
+	let selectedTheme = $state('forest');
 	let showModal = $state(false);
 
 	onMount(() => {

@@ -18,6 +18,8 @@
 		const saved = localStorage.getItem('theme');
 		if (saved && themes.includes(saved)) {
 			document.documentElement.setAttribute('data-theme', saved);
+		} else {
+			document.documentElement.setAttribute('data-theme', 'forest');
 		}
 	});
 
