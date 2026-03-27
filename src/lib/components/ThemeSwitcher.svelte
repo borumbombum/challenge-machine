@@ -35,6 +35,11 @@
 
 	let selectedTheme = $state('forest');
 	let showModal = $state(false);
+	let searchQuery = $state('');
+
+	let filteredThemes = $derived(
+		themes.filter(t => t.toLowerCase().includes(searchQuery.toLowerCase()))
+	);
 
 	onMount(() => {
 		const saved = localStorage.getItem('theme');
@@ -52,41 +57,16 @@
 	}
 </script>
 
-<!-- Mobile: Button to open modal -->
+<!-- Button to open theme picker modal -->
 <button 
-	class="btn btn-ghost btn-sm gap-1 sm:hidden"
-	onclick={() => showModal = true}
+	class="btn btn-ghost btn-sm gap-1"
+	onclick={() => { searchQuery = ''; showModal = true; }}
 >
 	<span>◐</span>
 	<span>{selectedTheme}</span>
 </button>
 
-<!-- Desktop: Dropdown -->
-<div class="dropdown dropdown-end z-50 hidden sm:block">
-	<div tabindex="0" role="button" class="btn btn-ghost btn-sm gap-1">
-		<span>◐</span>
-		<span class="hidden sm:inline">{selectedTheme}</span>
-		<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-	</div>
-	<ul class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-40 max-h-80 overflow-y-auto">
-		{#each themes as theme}
-			<li>
-				<button
-					class="btn btn-sm btn-ghost justify-between"
-					class:btn-active={selectedTheme === theme}
-					onclick={() => changeTheme(theme)}
-				>
-					<span>{theme}</span>
-					{#if selectedTheme === theme}
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-					{/if}
-				</button>
-			</li>
-		{/each}
-	</ul>
-</div>
-
-<!-- Mobile Modal - Fixed fullscreen to break out of navbar -->
+<!-- Modal for theme selection -->
 {#if showModal}
 	<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
 	<div class="fixed inset-0 z-[100] grid place-items-center p-4">
@@ -101,8 +81,14 @@
 				</button>
 			</div>
 			<div class="p-4 overflow-y-auto flex-1">
+				<input
+					type="text"
+					bind:value={searchQuery}
+					placeholder="Search themes..."
+					class="input input-bordered w-full mb-4"
+				/>
 				<div class="grid grid-cols-2 gap-2">
-					{#each themes as theme}
+					{#each filteredThemes as theme}
 						<button
 							class="btn {selectedTheme === theme ? 'btn-primary' : 'btn-ghost'} justify-between"
 							onclick={() => changeTheme(theme)}
@@ -112,6 +98,8 @@
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
 							{/if}
 						</button>
+					{:else}
+						<p class="col-span-2 text-center text-base-content/60 py-4">No themes found</p>
 					{/each}
 				</div>
 			</div>

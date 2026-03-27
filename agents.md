@@ -1,5 +1,7 @@
 # Running Challenge App - Project Specification
 
+> **ALERT:** DO NEVER PUSH WITHOUT ASKING FOR CONFIRMATION FIRST (because each push triggers a build and we are charged by Vercel for each build)
+
 ## Goal
 Build a fun, motivating SvelteKit + Tailwind + daisyUI web app for tracking a weekly running/walking challenge between participants. Shareable via UUID links.
 
