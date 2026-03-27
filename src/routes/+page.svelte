@@ -17,6 +17,10 @@
 				<span>📋</span>
 				<span class="hidden sm:inline">History</span>
 			</a>
+			<a href="/settings" class="btn btn-ghost btn-sm gap-1">
+				<span>⚙️</span>
+				<span class="hidden sm:inline">Settings</span>
+			</a>
 		</div>
 	</nav>
 

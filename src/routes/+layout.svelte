@@ -6,6 +6,20 @@
 	import Modal from '$lib/components/Modal.svelte';
 	import { appState } from '$lib/state.svelte';
 	import { navigating } from '$app/stores';
+	import { onMount } from 'svelte';
+
+	const themes = [
+		'light', 'dark', 'cupcake', 'bumblebee', 'emerald', 'corporate', 'synthwave', 'retro', 'cyberpunk',
+		'valentine', 'halloween', 'garden', 'forest', 'pastel', 'fantasy', 'wireframe', 'black', 'luxury',
+		'dracula', 'cmyk', 'autumn', 'business', 'acid', 'lemonade', 'night', 'coffee', 'winter', 'catppuccin', 'lichess'
+	];
+
+	onMount(() => {
+		const saved = localStorage.getItem('theme');
+		if (saved && themes.includes(saved)) {
+			document.documentElement.setAttribute('data-theme', saved);
+		}
+	});
 
 	$effect(() => {
 		if ($navigating) {
