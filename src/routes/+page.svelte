@@ -170,7 +170,7 @@
 				Powered by <a href="https://www.cubiq.lat" class="link" target="_blank" rel="noopener noreferrer">Cubiq</a>
 			</p>
 			<p class="text-sm">
-				Built with Opencode
+				Built with Opencode • v{__APP_VERSION__}
 			</p>
 		</div>
 	</footer>
